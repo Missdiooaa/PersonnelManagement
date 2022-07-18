@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dio.personnelmanagement.mapper.EmpMapper">
+	<insert id="insertEmp">
+		INSERT INTO emp (name, sex, email, deptname) VALUES (#{name}, #{sex}, #{email}, #{deptname});
+	</insert>
+
+	<!--	public List<Emp> getAllEmp();-->
+	<select id="getAllEmp" resultType="cn.dio.personnelmanagement.bean.Emp">
+		SELECT * FROM emp
+	</select>
+</mapper>
