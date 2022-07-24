@@ -7,10 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,18 +44,23 @@ public class EmpController {
         return map;
     }
 
-    @RequestMapping("/emp/isExistEmp")
-    public Map isExistEmp(@RequestParam("empName") String empName) {
+    @GetMapping("/emp/isExistEmp")
+    public Map isExistEmp(@RequestParam("name") String name) {
         Map map = new HashMap();
         map.put("code", 200);
         map.put("msg", "is200");
         return map;
     }
 
-    @PutMapping("/emp")
+    @PostMapping("/emp")
     public Map addEmp(Emp emp) {
 
-        empService.insertEmp(emp);
+        int i = empService.insertEmp(emp);
+        if (i > 0) {
+            System.out.println("增加成功，增加了{"+i+"}条数据");
+        } else {
+            System.out.println("增加失败！");
+        }
 
         Map map = new HashMap();
         map.put("code", 200);
@@ -75,7 +77,7 @@ public class EmpController {
         departmentList.add(department);
 
         Map extend = new HashMap();
-        extend.put("department", departmentList);
+        extend.put("departments", departmentList);
 
         Map map = new HashMap();
         map.put("code", 200);
