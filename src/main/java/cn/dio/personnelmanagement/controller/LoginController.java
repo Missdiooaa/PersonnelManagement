@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +30,7 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @RequestMapping({"/login"})
+    @GetMapping({"/login"})
     public ModelAndView login(@RequestParam("username") String username,
                               @RequestParam("password") String password,
                               HttpSession session) {
@@ -46,13 +47,13 @@ public class LoginController {
         }
         if (session.getAttribute("username") == null) {
             mv.addObject("error_msg", "login_error");
-            mv.setViewName("index");
+            mv.setViewName("redirect:index");
         }
 
         return mv;
     }
 
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String list(Model model, HttpSession session, HttpServletRequest request) {
 //        PageHelper.startPage(1, 10);
 //        List<Emp> empList = empService.getAllEmp();
@@ -72,7 +73,7 @@ public class LoginController {
         return "list";
     }
 
-    @RequestMapping("/test_error")
+    @GetMapping("/test_error")
     public String testError() {
         int i = 10 / 0;
         return "list";
